@@ -400,6 +400,23 @@ Java_com_kenai_jffi_Foreign_allocateMemory(JNIEnv* env, jobject self, jlong size
 
 /*
  * Class:     com_kenai_jffi_Foreign
+ * Method:    allocateAlignedMemory
+ * Signature: (JZ)J
+ */
+JNIEXPORT jlong JNICALL
+Java_com_kenai_jffi_Foreign_allocateAlignedMemory(JNIEnv* env, jobject self, jlong size, jint alignment, jboolean clear)
+{
+        void * memory = NULL;
+    int res = posix_memalign(&memory, (size_t) alignment, size);
+    if (res == 0 && memory != NULL && clear != JNI_FALSE) {
+        memset(memory, 0, size);
+    }
+        return p2j(memory);
+}
+
+
+/*
+ * Class:     com_kenai_jffi_Foreign
  * Method:    freeMemory
  * Signature: (J)V
  */

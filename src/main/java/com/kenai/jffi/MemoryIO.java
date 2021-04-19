@@ -482,6 +482,18 @@ public abstract class MemoryIO {
     }
 
     /**
+     * Allocates native memory.
+     *
+     * @param size The number of bytes of memory to allocate
+     * @param alignment The byte alignment for the allocation
+     * @param clear Whether the memory should be cleared (each byte set to zero).
+     * @return The native address of the allocated memory.
+     */
+    public final long allocateMemory(long size, int alignment, boolean clear) {
+        return Foreign.allocateAlignedMemory(size, alignment, clear) & ADDRESS_MASK;
+    }
+    
+    /**
      * Releases memory allocated via {@link #allocateMemory} back to the system.
      *
      * @param address The address of the memory to release.

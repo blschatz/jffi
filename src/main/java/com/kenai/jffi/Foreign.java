@@ -371,6 +371,16 @@ final class Foreign {
     static native long allocateMemory(long size, boolean clear);
 
     /**
+     * Allocates native memory.
+     *
+     * @param size The number of bytes of memory to allocate
+     * @param alignment The byte alignment required
+     * @param clear Whether the memory should be cleared (each byte set to zero).
+     * @return The native address of the allocated memory.
+     */
+    static native long allocateAlignedMemory(long size, int alignment, boolean clear);
+    
+    /**
      * Releases memory allocated via {@link #allocateMemory} back to the system.
      *
      * @param address The address of the memory to release.

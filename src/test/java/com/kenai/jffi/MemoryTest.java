@@ -39,6 +39,13 @@ public class MemoryTest {
         assertNotSame("Could not allocate memory", 0L, memory);
         MemoryIO.getInstance().freeMemory(memory);
     }
+    
+    @Test public void allocateAligned() {
+        long memory = MemoryIO.getInstance().allocateMemory(1024, 1024, false);
+        assertNotSame("Could not allocate memory", 0L, memory);
+        assertTrue("allocated memory is not aligned", memory % 1024 == 0);
+        MemoryIO.getInstance().freeMemory(memory);
+    }
     @Test public void zeroTerminatedByteArray() {
         byte[] MAGIC = { 't', 'e', 's', 't' };
         long memory = MemoryIO.getInstance().allocateMemory(MAGIC.length + 1, true);
